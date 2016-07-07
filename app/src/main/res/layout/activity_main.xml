@@ -9,11 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="android.vegard.com.expandablelistviewtest.MainActivity">
 
-    <ExpandableListView
+    <android.vegard.com.expandablelistviewtest.AnimatedExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/exp_list"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft">
 
-    </ExpandableListView>
+    </android.vegard.com.expandablelistviewtest.AnimatedExpandableListView>
 </RelativeLayout>

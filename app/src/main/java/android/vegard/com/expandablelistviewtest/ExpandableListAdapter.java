@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Created by Vegard on 27.06.2016.
  */
-public class ExpandableListAdapter extends BaseExpandableListAdapter{
+public class ExpandableListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
 
     private Context context;
     private HashMap<String, List<String>> listGroups;
@@ -31,12 +30,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     public int getGroupCount() {
         return listItems.size();
     }
-
+/*
     @Override
     public int getChildrenCount(int i) {
         return listGroups.get(listItems.get(i)).size();
     }
-
+*/
     @Override
     public Object getGroup(int i) {
         return listItems.get(i);
@@ -81,6 +80,26 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     }
 
     @Override
+    public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parentView) {
+        String childTitle = (String) getChild(groupPosition, childPosition);
+        if(convertView == null){
+            LayoutInflater inflater =
+                    (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.child_layout,parentView, false);
+        }
+
+        TextView childTextView = (TextView) convertView.findViewById(R.id.child_txt);
+        childTextView.setText(childTitle);
+
+        return convertView;
+    }
+
+    @Override
+    public int getRealChildrenCount(int groupPosition) {
+        return listGroups.get(listItems.get(groupPosition)).size();
+    }
+/*
+    @Override
     public View getChildView(int parent,
                              int child,
                              boolean lastChild,
@@ -98,9 +117,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
         return convertView;
     }
-
+*/
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return false;
     }
+
+
 }
